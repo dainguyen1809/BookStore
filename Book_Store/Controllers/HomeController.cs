@@ -16,6 +16,7 @@ namespace Book_Store.Controllers
             _db = db;
         }
 
+        [Route("/")]
         public IActionResult Index()
         {
             List<Book> listBook = _db.Books.ToList();

@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Topics";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model IEnumerable<Topic>
+
+    <h1 class="text-center">Quản lý chủ đề</h1>
+@{
+    if (Model != null)
+    {
+        <div class="container">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr class="text-center">
+                        <th>
+                            ID
+                        </th>
+                        <th>Topics Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var obj in Model)
+                    {
+                        <tr>
+                            <td>@obj.Id</td>
+                            <td>@obj.TopicName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+}

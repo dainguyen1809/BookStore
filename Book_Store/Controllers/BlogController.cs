@@ -1,5 +1,4 @@
-﻿using Book_Store.Repository.Data;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Book_Store.Controllers
 {

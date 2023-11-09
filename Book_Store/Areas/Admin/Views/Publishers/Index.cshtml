@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model IEnumerable<Publisher>
+
+<h1 class="text-center">Quản lý NXB</h1>
+
+@{
+    @if (Model != null)
+    {
+        <div class="container">
+        <table class="table table-bordered table-striped text-center">
+            <thead>
+                <tr>
+                    <th>
+                        Publisher Name
+                    </th>
+                    <th>
+                        Address
+                    </th>
+                    <th>Phone</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model)
+                {
+                    <tr>
+                        <td>@obj.NamePublisher</td>
+                        <td>@obj.Address</td>
+                        <td>@obj.Phone</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+}

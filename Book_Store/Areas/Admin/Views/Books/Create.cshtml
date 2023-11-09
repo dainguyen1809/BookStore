@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model Book_Store.Models.Book
+
+
+<div class="container">
+    <div class="row">
+        <h3>Form Insert</h3>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="" class="form-label">Tên sách</label>
+            <input type="text" class="form-control" id="">
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Giá</label>
+            <input type="text" class="form-control" id="">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Mô tả</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Ngày cập nhật</label>
+            <input type="date" class="form-control" id="">
+        </div>
+        <div class="mb-3">
+            <label for="formFile" class="form-label">Ảnh bìa</label>
+            <input class="form-control" type="file" id="formFile">
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Số lượng tồn kho</label>
+            <input type="number" class="form-control" id="">
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Mã chủ đề</label>
+            <input type="number" class="form-control" id="">
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Mã NXB</label>
+            <input type="number" class="form-control" id="">
+        </div>
+    </form>
+</div>
