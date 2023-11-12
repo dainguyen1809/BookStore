@@ -28,7 +28,12 @@ namespace BookStore.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Create(Topic obj)
         {
-            return View();
+            if(ModelState.IsValid)
+            {
+                _db.Topics.Add(obj);
+                _db.SaveChanges();
+            }
+            return RedirectToAction("Index");
         }
     }
 }

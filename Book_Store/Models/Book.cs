@@ -10,19 +10,19 @@ namespace Book_Store.Models
 		[Required, MaxLength(255, ErrorMessage = "Hãy nhập tên sách")]
 		public string BookName { get; set; }
 
-		[Required, MaxLength(255, ErrorMessage = "Hãy nhập giá sách")]
+		[Required(ErrorMessage = "Hãy nhập giá sách")]
 		public double Price { get; set; }
 
 		[Required, MaxLength(255, ErrorMessage = "Hãy nhập mô tả của sách")]
 		public string Description { get; set; }
 
-		[Required, MaxLength(255, ErrorMessage = "Hãy nhập thời gian cập nhật sách")]
+		[Required(ErrorMessage = "Hãy nhập thời gian cập nhật sách")]
 		public DateTime DateUpdate { get; set; }
 
 		[Required, MaxLength(255, ErrorMessage = "Hãy chọn ảnh bìa sách")]
 		public string UrlImgCover { get; set; }
 
-		[Required, MaxLength(255, ErrorMessage = "Hãy nhập số lượng sách có trong kho")]
+		[Required(ErrorMessage = "Hãy nhập số lượng sách có trong kho")]
 		public int InventoryNumber { get; set; }
 
 		//foreign key

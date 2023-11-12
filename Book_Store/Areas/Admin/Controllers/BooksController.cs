@@ -1,9 +1,13 @@
 ﻿using Book_Store.Models;
 using Book_Store.Repository.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace BookStore.Areas.Admin.Controllers
 {
+	[Area("Admin")]
     public class BooksController : Controller
     {
         private readonly DataContext _db;
@@ -12,37 +16,123 @@ namespace BookStore.Areas.Admin.Controllers
             _db = db;
         }
 
-		[Area("Admin")]
-		public IActionResult Index()    
+		public async Task<IActionResult> Index()    
         {
-            List<Book> listBooks = _db.Books.ToList();
-            return View(listBooks);
+            return View(
+				await _db.Books.OrderBy(b => b.Id).Include(b => b.Topic).Include(b => b.Publisher).ToListAsync()
+				);
         }
 
-        [Area("Admin")]
         public IActionResult Create()
 		{
-			return View("Create");
+			ViewBag.Topics = new SelectList(_db.Topics, "Id", "TopicName");
+			ViewBag.Publishers = new SelectList(_db.Publishers, "Id", "NamePublisher");
+            return View();
 		}
 
 		[HttpPost]
-		public IActionResult Create(Book obj, IFormFile img)
+		public IActionResult Create(Book obj, IFormFile UrlImgCover)
 		{
-			if (ModelState.IsValid)
+			try 
 			{
-				if (img != null && img.Length > 0)
+				if (UrlImgCover != null && UrlImgCover.Length > 0)
 				{
-					var imgPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images", img.FileName);
+					var imgPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images", UrlImgCover.FileName);
 					using (var stream = new FileStream(imgPath, FileMode.Create))
 					{
-						img.CopyTo(stream);
+                        UrlImgCover.CopyTo(stream);
 					}
-					obj.UrlImgCover = "/Images/" + img.FileName;
+					obj.UrlImgCover =  UrlImgCover.FileName;
 				}
 				_db.Books.Add(obj);
 				_db.SaveChanges();
-			}
 			return RedirectToAction("Index");
+			}
+			catch(Exception e){
+                Console.WriteLine(e);
+            }
+			return View();
 		}
-	}
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+			if (id == null || id == 0)
+			{
+				return NotFound();
+			}
+
+			Book? BookFromDB = await _db.Books.FindAsync(id);
+
+			ViewBag.Topics = new SelectList(_db.Topics, "Id", "TopicName");
+			ViewBag.Publishers = new SelectList(_db.Publishers, "Id", "NamePublisher");
+
+			if(BookFromDB == null )
+			{
+				return NotFound();
+			}
+
+			return View(BookFromDB);
+        }
+
+
+
+        [HttpPost]
+        public IActionResult Edit(Book obj, IFormFile UrlImgCover)
+        {
+            try
+            {
+                if (UrlImgCover != null && UrlImgCover.Length > 0)
+                {
+                    var imgPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images", UrlImgCover.FileName);
+                    using (var stream = new FileStream(imgPath, FileMode.Create))
+                    {
+                        UrlImgCover.CopyTo(stream);
+                    }
+                    obj.UrlImgCover = UrlImgCover.FileName;
+                }
+                _db.Books.Update(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return View();
+        }
+
+        public IActionResult Delete(int? id)
+        {
+
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            Book? BookFromDB =  _db.Books.Find(id);
+
+            if(BookFromDB == null)
+            {
+                return NotFound();
+            }
+
+            // Xóa ảnh từ wwwroot/Images
+            if (!string.IsNullOrEmpty(BookFromDB.UrlImgCover))
+            {
+                var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images", BookFromDB.UrlImgCover);
+                if (System.IO.File.Exists(imagePath))
+                {
+                    System.IO.File.Delete(imagePath);
+                }
+            }
+
+            _db.Books.Remove(BookFromDB);
+            _db.SaveChanges();
+
+            return RedirectToAction("Index");
+
+        }
+
+
+    }
 }
