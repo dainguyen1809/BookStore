@@ -35,6 +35,7 @@
             <label asp-for="UrlImgCover" class="form-label">Ảnh bìa</label>
             <input asp-for="UrlImgCover" class="form-control-file" type="file" id="formFile">
             <span asp-validation-for="UrlImgCover" class="text-danger"></span>
+            <img src="~/Images/@Model.UrlImgCover" />
         </div>
         <div class="mb-3">
             <label asp-for="InventoryNumber" class="form-label">Số lượng tồn kho</label>

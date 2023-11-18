@@ -81,6 +81,20 @@ namespace BookStore.Areas.Admin.Controllers
         {
             try
             {
+                // Lấy thông tin sách từ database
+                var existingBook = _db.Books.AsNoTracking().FirstOrDefault(b => b.Id == obj.Id);
+
+                // Kiểm tra xem có ảnh cũ không và xóa nó
+                if (!string.IsNullOrEmpty(existingBook?.UrlImgCover))
+                {
+                    var oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images", existingBook.UrlImgCover);
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+                }
+
+                // lưu ảnh mới 
                 if (UrlImgCover != null && UrlImgCover.Length > 0)
                 {
                     var imgPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Images", UrlImgCover.FileName);
@@ -90,6 +104,8 @@ namespace BookStore.Areas.Admin.Controllers
                     }
                     obj.UrlImgCover = UrlImgCover.FileName;
                 }
+
+                // Cập nhật thông tin sách
                 _db.Books.Update(obj);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
