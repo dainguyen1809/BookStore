@@ -17,6 +17,7 @@
                             ID
                         </th>
                         <th>Topics Name</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,6 +26,8 @@
                         <tr>
                             <td>@obj.Id</td>
                             <td>@obj.TopicName</td>
+                            <td><a asp-controller="Topics" asp-action="Edit" asp-route-Id="@obj.Id" class="btn btn-primary w-100"><i class="bi bi-pencil-square"></i> Edit</a></td>
+                            <td><a asp-controller="Topics" asp-action="Delete" asp-route-Id="@obj.Id" class="btn btn-danger w-100"><i class="bi bi-trash2-fill"></i> Delete</a></td>
                         </tr>
                     }
                 </tbody>

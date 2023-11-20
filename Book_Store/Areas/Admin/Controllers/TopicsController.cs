@@ -35,5 +35,64 @@ namespace BookStore.Areas.Admin.Controllers
             }
             return RedirectToAction("Index");
         }
+        public IActionResult Edit(int? Id)
+        {
+            if(Id == null || Id == 0)
+            {
+                return NotFound();
+            }
+
+            Topic? topicFromDB = _db.Topics.Find(Id);
+
+            if(topicFromDB == null)
+            {
+                return NotFound();
+            }
+
+            return View(topicFromDB);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Topic obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Topics.Update(obj);
+                _db.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int? Id)
+        {
+            if(Id == null || Id == 0)
+            {
+                return NotFound();
+            }
+
+            Topic? topicFromDB = _db.Topics.Find(Id);
+
+            if (topicFromDB == null)
+            {
+                return NotFound();
+            }
+
+            return View(topicFromDB);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult ProcessDelete(int? Id)
+        {
+            Topic? obj = _db.Topics.Find(Id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            _db.Topics.Remove(obj);
+            _db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
     }
 }

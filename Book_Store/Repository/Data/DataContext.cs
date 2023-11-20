@@ -1,9 +1,10 @@
 ﻿using Book_Store.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Book_Store.Repository.Data
 {
-	public class DataContext : DbContext
+	public class DataContext : IdentityDbContext<AppCustomer>
 	{
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {

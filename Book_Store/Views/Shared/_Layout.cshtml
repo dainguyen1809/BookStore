@@ -49,7 +49,7 @@
 						<div class="col-2">
 							<a asp-controller="Home" asp-action="Index" class="logo m-0 float-start">Book Store<span class="text-primary">.</span></a>
 						</div>
-						<div class="col-8 text-center">
+						<div class="col-6 text-center">
 							<form action="#" class="search-form d-inline-block d-lg-none">
 								<input type="text" class="form-control" placeholder="Search...">
 								<i class="bi bi-search"></i>
@@ -58,7 +58,6 @@
 							<ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu mx-auto">
 								<li class="active"><a asp-controller="Home" asp-action="Index">Home</a></li>
 								<li><a asp-controller="Blog" asp-action="Index">Blog</a></li>
-								<li><a asp-controller="Account" asp-action="Index">Account <i class="bi bi-person-circle"></i></a></li>
 								<li><a asp-controller="Cart" asp-action="Index">Cart <i class="bi bi-basket3-fill"></i></a></li>
 							</ul>
 						</div>
@@ -70,6 +69,17 @@
 								<input type="text" class="form-control" placeholder="Search...">
 								<span class="bi-search"></span>
 							</form>
+						</div>
+						<div class="col-2 text-end">
+							<div class="dropdown">
+								<a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+									Account  <i class="bi bi-person-circle"></i>
+								</a>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									<li><a asp-controller="Account" asp-action="SignIn" class="dropdown-item">Đăng nhập</a></li>
+									<li><a asp-controller="Account" asp-action="Register" class="dropdown-item">Đăng ký</a></li>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>

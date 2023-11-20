@@ -1,4 +1,6 @@
-﻿using Book_Store.Repository.Data;
+﻿using Book_Store.Models;
+using Book_Store.Repository.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +24,36 @@ builder.Services.AddSession(
         }
     );
 
+
+//Identity Customers
+builder.Services.AddIdentity<AppCustomer, IdentityRole>(/* Xác thực tài khoản qua Email ---->> options => options.SignIn.RequireConfirmedAccount = true*/)
+    .AddEntityFrameworkStores<DataContext>().AddDefaultTokenProviders();
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    // Password settings.
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredLength = 6;
+    //  Yêu cầu ký tự đặt biệt ---->> options.Password.RequiredUniqueChars = 1;
+
+    /*
+        // Lockout settings.
+        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+        options.Lockout.MaxFailedAccessAttempts = 5;
+        options.Lockout.AllowedForNewUsers = true;
+
+        // User settings.
+        options.User.AllowedUserNameCharacters =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+        options.User.RequireUniqueEmail = false;
+    */
+});
+
+
+
 /* ------------------------------------------------------------------------------------------------------------------------------ */
 
 var app = builder.Build();
@@ -43,6 +75,10 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+// Xác thực và phân quyền
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseAuthorization();
 
