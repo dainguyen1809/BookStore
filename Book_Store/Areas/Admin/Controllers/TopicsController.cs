@@ -20,10 +20,7 @@ namespace BookStore.Areas.Admin.Controllers
             return View(listThemes);
         }
 
-        public IActionResult Create()
-        {
-            return View();
-        }
+        public IActionResult Create() => View();
 
         [HttpPost]
         public IActionResult Create(Topic obj)

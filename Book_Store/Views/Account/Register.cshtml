@@ -11,9 +11,9 @@
             <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Đăng ký tài khoản</h1>
             </div>
-            <form asp-controller="Account" asp-action="Register" class="user">
+            <form asp-controller="Account" asp-action="Register">
                 <div class="form-group">
-                    <label>User Name</label>
+                    <label>Họ Tên</label>
                     <input asp-for="CustomerName" type="text" class="form-control form-control-user" placeholder="Nhập tên của bạn">
                     <span asp-validation-for="CustomerName" class="text-danger"></span>
                 </div>
@@ -34,7 +34,7 @@
                 </div>
                 <div class="form-group">
                     <label>Tên đăng nhập</label>
-                    <input asp-for="Account" type="text" class="form-control form-control-user" id="exampleInputEmail" placeholder="Nhập tên đăng nhập">
+                    <input asp-for="Account" type="text" class="form-control form-control-user" id="" placeholder="Nhập tên đăng nhập">
                     <span asp-validation-for="Account" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -44,7 +44,7 @@
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input asp-for="Email" type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Nhập địa chỉ Email">
+                    <input asp-for="Email" type="email" class="form-control form-control-user" id="" placeholder="Nhập địa chỉ Email">
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -52,9 +52,9 @@
                     <input asp-for="Address" type="text" class="form-control form-control-user" id="exampleInputEmail" placeholder="Nhập địa chỉ của bạn">
                     <span asp-validation-for="Address" class="text-danger"></span>
                 </div>
-                <a asp-controller="Account" asp-action="Register" class="btn btn-primary btn-user btn-block">
+                <button class="btn btn-primary">
                     Đăng ký
-                </a>
+                </button>
                 <hr>
                 <div class="text-center">
                     <a class="btn btn-google btn-user btn-block">
@@ -74,7 +74,7 @@
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="text-center">
-                        <a asp-controller="Account" asp-action="SignIn" class="small">Đã có tài khoản ?</a>
+                        <a asp-controller="Account" asp-action="SignIn" asp-route-returnUrl="@Context.Request.Path" class="small">Đã có tài khoản ?</a>
                     </div>
                 </div>
             </div>

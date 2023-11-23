@@ -16,12 +16,7 @@ namespace BookStore.Areas.Admin.Controllers
             _db = db;
         }
 
-		public async Task<IActionResult> Index()    
-        {
-            return View(
-				await _db.Books.OrderBy(b => b.Id).Include(b => b.Topic).Include(b => b.Publisher).ToListAsync()
-				);
-        }
+		public async Task<IActionResult> Index() => View(await _db.Books.OrderBy(b => b.Id).Include(b => b.Topic).Include(b => b.Publisher).ToListAsync());
 
         public IActionResult Create()
 		{

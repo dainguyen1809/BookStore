@@ -24,7 +24,6 @@ builder.Services.AddSession(
         }
     );
 
-
 //Identity Customers
 builder.Services.AddIdentity<AppCustomer, IdentityRole>(/* Xác thực tài khoản qua Email ---->> options => options.SignIn.RequireConfirmedAccount = true*/)
     .AddEntityFrameworkStores<DataContext>().AddDefaultTokenProviders();
