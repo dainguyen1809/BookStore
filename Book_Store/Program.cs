@@ -24,6 +24,8 @@ builder.Services.AddSession(
         }
     );
 
+
+
 //Identity Customers
 builder.Services.AddIdentity<AppCustomer, IdentityRole>(/* Xác thực tài khoản qua Email ---->> options => options.SignIn.RequireConfirmedAccount = true*/)
     .AddEntityFrameworkStores<DataContext>().AddDefaultTokenProviders();
@@ -51,6 +53,19 @@ builder.Services.Configure<IdentityOptions>(options =>
     */
 });
 
+//  Role Admin
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/SignIn";
+});
+
+
+//  Authentication Facebook
+//builder.Services.AddAuthentication().AddFacebook(facebookOptions =>
+//{
+//    facebookOptions.ClientId = "1775825096164187";
+//    facebookOptions.ClientSecret = "e8b616eeacdedd592e3259c382022799";
+//});
 
 
 /* ------------------------------------------------------------------------------------------------------------------------------ */
