@@ -78,7 +78,7 @@
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 									@if(User.Identity?.IsAuthenticated ?? false)
 									{
-										<li><a asp-controller="Account" asp-action="SignIn" class="dropdown-item">Xin Chào @User.Identity.Name</a></li>
+										<li><p class="dropdown-item">Xin Chào @User.Identity.Name</p></li>
 										<li><a asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Context.Request.Path" class="dropdown-item">Đăng Xuất</a></li>
 
 									}

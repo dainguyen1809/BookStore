@@ -58,12 +58,19 @@
                 <form>
                     <p>SHIPPING</p>
                     <select><option class="text-muted">Giảm 5%</option></select>
-                    <p>GIVE CODE</p>
+                    <p>Nhập mã giảm giá</p>
                     <input id="code" placeholder="Enter your code">
                 </form>
-                    <div class="col">TOTAL PRICE</div>
+                    <div class="col">Tổng tiền</div>
                     <div class="col text-right">&euro; @Model.Total.ToString()</div>
-                <button class="btn">CHECKOUT</button>
+                @if(User.Identity?.IsAuthenticated ?? false)
+                {
+                    <a asp-controller="Order" asp-action="Checkout" class="btn btn-success">Thanh Toán</a>
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="SignIn" asp-route-returnUrl="@Context.Request.Path" class="btn btn-warning">Đăng nhập để thanh toán</a>
+                }
             </div>
         </div>
     </div>

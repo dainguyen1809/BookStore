@@ -9,5 +9,6 @@ namespace Book_Store.Models
         public string Gender { get; set; }
         public string? Account { get; set; }
         public string Address { get; set; }
+        public string Role { get; set; }
     }
 }

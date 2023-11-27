@@ -4,6 +4,7 @@ using Humanizer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Book_Store.Repository;
 
 namespace Book_Store.Controllers
 {
@@ -33,12 +34,19 @@ namespace Book_Store.Controllers
                     Account = cust.Account,
                     UserName = cust.Account,
                     Email = cust.Email,
-                    Address = cust.Address
+                    Address = cust.Address,
+                    Role = "Customer"
                 };
                 IdentityResult result = await _userManager.CreateAsync(newCustomer, cust.Password);
 
                 if (result.Succeeded)
                 {
+
+                    //if(!await _userManager.IsInRoleAsync(newCustomer, "Admin"))
+                    //{
+                    //    await _userManager.AddToRoleAsync(newCustomer, "Admin");
+                    //}
+
                     return Redirect("/");
                 }
                 foreach (IdentityError err in result.Errors)
@@ -62,7 +70,16 @@ namespace Book_Store.Controllers
 
                 if (result.Succeeded)
                 {
-                    return Redirect(signinVM.returnURL = "/" ?? "/");
+                    var cust = await _userManager.FindByNameAsync(signinVM.Account);
+
+                    HttpContext.Session.SetJson("UserId", cust.Id);
+
+                    if (await _userManager.IsInRoleAsync(cust, "Admin"))
+                    {
+                        return Redirect("Admin");
+                    }
+
+                    return Redirect("/");
                 }
 
                 ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không đúng");
@@ -73,8 +90,9 @@ namespace Book_Store.Controllers
 
         public async Task<IActionResult> Logout(string returnUrl = "/")
         {
+            HttpContext.Session.Remove("UserId");
             await _signInManager.SignOutAsync();
-            return Redirect(returnUrl);
+            return Redirect("SignIn");
         }
     }
 }

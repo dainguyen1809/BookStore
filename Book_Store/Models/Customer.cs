@@ -28,5 +28,6 @@ namespace Book_Store.Models
 
         [Required(ErrorMessage = "Nhập địa chỉ của bạn")]
         public string Address { get; set; }
+
     }
 }
