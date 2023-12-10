@@ -1,6 +1,7 @@
 ﻿using Book_Store.Models;
 using Book_Store.Repository;
 using Book_Store.Repository.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -9,13 +10,16 @@ namespace Book_Store.Controllers
     public class OrderController : Controller
     {
         private readonly DataContext _db;
-
-        public OrderController(DataContext db)
+		private UserManager<AppCustomer> _userManager;
+            
+		public OrderController(DataContext db, UserManager<AppCustomer> userManager)
         {
             _db = db;
-        }
+			_userManager = userManager;
 
-        public IActionResult Checkout()
+		}
+
+		public async Task<IActionResult> Checkout()
         {
             var userEmail = User.FindFirstValue(ClaimTypes.Email);
             if (userEmail == null)
@@ -24,20 +28,27 @@ namespace Book_Store.Controllers
             }
             else
             {
-                var orderCode = Guid.NewGuid().ToString();
-                var orderItems = new Order();
-                orderItems.OrderCode = orderCode;
+                var Order = new Order();
                 //orderItems.DeliveryDate = DateTime.Now;
-                orderItems.OrderDate = DateTime.Now;
-                orderItems.Checkout = 0;
-                orderItems.Status = 1;
-                orderItems.UserName = userEmail;
+                Order.OrderDate = DateTime.Now;
+                Order.Checkout = 0;
+                Order.Status = 1;
+                Order.UserName = userEmail;
+                AppCustomer cust = await _userManager.FindByEmailAsync(userEmail);
+                if (cust == null)
+                {
+                    return Redirect("/");
+				}
+                Order.AspNetUserId = cust.Id;
+                _db.Add(Order);
+				_db.SaveChanges();
+                Console.WriteLine(Order);
 
                 List<Cart> cartItems = HttpContext.Session.GetJson<List<Cart>>("Cart") ?? new List<Cart>();
                 foreach(var items in cartItems)
                 {
-                    var orderDetail = new OrderDetail(); 
-                    orderDetail.OrderCode = orderCode;
+                    var orderDetail = new OrderDetail();
+                    orderDetail.OrderId = Order.Id;
                     orderDetail.BookId = items.BookId;
                     orderDetail.Price = items.Price;
                     orderDetail.Quantity = items.Quantity;

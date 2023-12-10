@@ -1,5 +1,5 @@
 *.vs
 bin
 obj
-wwwroot
+/scss
 Migrations

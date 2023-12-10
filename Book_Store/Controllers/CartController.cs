@@ -45,7 +45,7 @@ namespace Book_Store.Controllers
             //	Đưa cart lưu vào session
             HttpContext.Session.SetJson("Cart", cart);
 
-            return Redirect(Request.Headers["Referer"].ToString());
+            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Decrease(int id)

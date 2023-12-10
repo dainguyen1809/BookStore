@@ -4,6 +4,7 @@ namespace Book_Store.Models
 {
     public class Customer
     {
+        [Key]
         public int Id { get; set; }
         [Required(ErrorMessage = "Nhập tên của bạn")]
         public string CustomerName { get; set; }
@@ -28,6 +29,7 @@ namespace Book_Store.Models
 
         [Required(ErrorMessage = "Nhập địa chỉ của bạn")]
         public string Address { get; set; }
+
 
     }
 }

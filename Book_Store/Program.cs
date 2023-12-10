@@ -8,6 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+//API
+builder.Services.AddEndpointsApiExplorer();
+//builder.Services.AddSwaggerGen();
+builder.Services.AddHttpClient();
+
 // Connection DB
 builder.Services.AddDbContext<DataContext>(
     option => option.UseSqlServer(builder.Configuration.GetConnectionString("BookStore"))
@@ -115,5 +120,8 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
+app.MapControllerRoute(
+	name: "api",
+	pattern: "{api}/{controller}/{id?}");
 
 app.Run();
