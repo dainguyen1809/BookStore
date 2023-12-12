@@ -65,7 +65,7 @@
                     <div class="col text-right">&euro; @Model.Total.ToString()</div>
                 @if(User.Identity?.IsAuthenticated ?? false)
                 {
-                    <a asp-controller="Order" asp-action="Checkout" class="btn btn-success">Thanh Toán</a>
+                    <a asp-controller="Paypal" asp-action="CreatePayment" class="btn btn-success">Thanh Toán</a>
                 }
                 else
                 {

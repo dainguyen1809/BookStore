@@ -41,8 +41,8 @@
                             <td>@obj.InventoryNumber</td>
                             <td>@obj.Topic.TopicName</td>
                             <td>@obj.Publisher.NamePublisher</td>
-                            <td><a asp-controller="Books" asp-action="Edit" asp-route-Id="@obj.Id" class="btn btn-primary"><i class="bi bi-pencil-square"></i> Edit</a></td>
-                            <td><a asp-controller="Books" asp-action="Delete" asp-route-Id="@obj.Id" class="btn btn-danger"><i class="bi bi-trash2-fill"></i> Delete</a></td>
+                            <td><a href="@Url.Action("Edit", "Admin", new { id = item.id })" class="btn btn-primary"><i class="bi bi-pencil-square"></i> Edit</a></td>
+                            <td><a href="@Url.Action("Delete", "Admin", new { id = item.id })" class="btn btn-danger"><i class="bi bi-trash2-fill"></i> Delete</a></td>
                         </tr>
                     }
                 </tbody>

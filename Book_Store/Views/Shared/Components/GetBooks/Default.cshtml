@@ -4,7 +4,7 @@
 @foreach (var obj in Model.Take(5))
 {
     <div class="blog-entry d-flex blog-entry-search-item">
-        <a asp-controller="Books" asp-action="Details" class="img-link me-4">
+        <a asp-controller="Books" asp-action="Details" asp-route-Id="@obj.Id" class="img-link me-4">
             <img src="~/Images/@obj.UrlImgCover" alt="Image" class="img-fluid">
         </a>
         <div>

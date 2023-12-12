@@ -92,7 +92,7 @@ namespace Book_Store.Controllers
         {
             HttpContext.Session.Remove("UserId");
             await _signInManager.SignOutAsync();
-            return Redirect("SignIn");
+            return Redirect("/");
         }
     }
 }

@@ -5,7 +5,7 @@
 	if(Model != null)
 	{
 		var rand = new Random();
-		randList = Model.OrderBy(b => rand.Next()).Take(3).ToList();
+		randList = Model.OrderBy(b => rand.Next()).Take(6).ToList();
 	}
 
 	@foreach (var obj in randList)
