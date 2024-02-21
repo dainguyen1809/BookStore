@@ -1,7 +1,8 @@
 *.vs
 bin
 obj
-/scss
 Migrations
 /Images
-wwwroot/
+*.html
+*.css
+*.scss
